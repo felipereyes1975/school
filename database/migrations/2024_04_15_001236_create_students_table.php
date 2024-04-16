@@ -16,7 +16,11 @@ return new class extends Migration
             $table->string('names');
             $table->string('last_name');
             $table->string('second_last_name')->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
