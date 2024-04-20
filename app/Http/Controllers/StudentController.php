@@ -13,7 +13,9 @@ class StudentController extends Controller
     public function index()
     {
         //
-        return view ('students.index');
+        $student = Student::all();
+        // dd($student);
+        return view ('students.index', ['students' => $student]);
     }
 
     /**
@@ -22,6 +24,7 @@ class StudentController extends Controller
     public function create()
     {
         //
+        return view('students.create');
     }
 
     /**
@@ -35,8 +38,9 @@ class StudentController extends Controller
                 'names' => $request->get('name'),
                 'last_name' => $request->get('last_name'),
                 'second_last_name' => $request->get('second_last_name'),
-                'user_id' => auth()->id()
+                'created_by' => auth()->id()
             ]);
+            return to_route('students.index')->with('status', __('New student added'));
         } catch (\Throwable $th) {
             //throw $th;
             return to_route('students.index')->with('status', __('Error on sending data'));

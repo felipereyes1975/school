@@ -13,7 +13,6 @@ class Student extends Model
         'names',
         'last_name',
         'second_last_name',
-        'user_id',
         'created_by',
         'updated_by'
     ];
