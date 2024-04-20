@@ -33,12 +33,12 @@
                                 <td> {{ $student->names }} </td>
                                 <td>{{ $student->last_name }}</td>
                                 <td>{{ $student->second_last_name }}</td>
-                                <td class="place-content-center">
+                                <td class="inline-block m-4 content-center flex">
                                 <a href="/students/view/{{ $student->id }}/" 
-                                class="text-green-200 bg-green-600 rounded p-2">{{__("view")}}</a>
+                                class="text-green-200 bg-green-600 rounded p-2 mx-2 w-1/3 text-center">{{__("view")}}</a>
                                 <a href="/students/edit/{{ $student->id }}" 
-                                class="text-blue-200 bg-blue-600 rounded p-2">{{__('edit')}}</a>
-                                <a href="" class="text-red-200 bg-red-600 rounded p-2">{{__('delete')}}</a></td>
+                                class="text-blue-200 bg-blue-600 rounded p-2 mx-2 w-1/3 text-center">{{__('edit')}}</a>
+                                <a href="" class="text-red-200 bg-red-600 rounded p-2 mx-2 w-1/3 text-center">{{__('delete')}}</a></td>
                             </tr>
                             @empty
                             <tr>
