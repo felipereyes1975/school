@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class StudentController extends Controller
 {
@@ -54,6 +55,17 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         //
+        
+    }
+    public function view($id)
+    {
+        $studentSelect = Student::find($id);
+        $created_by = User::find($studentSelect->created_by);
+        $updated_by = User::find($studentSelect->updated_by);
+        //echo $studentSelect;
+        return view('students.view', ['student' => $studentSelect,
+        'created_by' => $created_by,
+        'updated_by' => $updated_by]);
     }
 
     /**

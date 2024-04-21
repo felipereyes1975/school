@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/students', [StudentController::class, 'index'])->name('students.index');
     Route::post('/students/new', [StudentController::class, 'store'])->name('students.store');
     Route::get('/students/new', [StudentController::class, 'create'])->name('students.store');
+    Route::get('/students/view/{id}', [StudentController::class, 'view'])->name('students.view');
 });
 
 require __DIR__.'/auth.php';

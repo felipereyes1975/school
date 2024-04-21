@@ -28,17 +28,18 @@
                         </thead>
                         <tbody>
                             @forelse ($students as $student)
-                            <tr class="border border-separate p-5 m-10 mt-5 border border-slate-500">
+                            <tr class="border border-separate p-2 border border-slate-500
+                            odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="p-4"> {{ $student->id }} </td>
                                 <td> {{ $student->names }} </td>
                                 <td>{{ $student->last_name }}</td>
                                 <td>{{ $student->second_last_name }}</td>
-                                <td class="inline-block m-4 content-center flex">
+                                <td class="inline-block m-4 content-center flex px-5">
                                 <a href="/students/view/{{ $student->id }}/" 
-                                class="text-green-200 bg-green-600 rounded p-2 mx-2 w-1/3 text-center">{{__("view")}}</a>
+                                class="bg-green-600 rounded p-2 mx-2 w-1/3 text-center">{{__("view")}}</a>
                                 <a href="/students/edit/{{ $student->id }}" 
-                                class="text-blue-200 bg-blue-600 rounded p-2 mx-2 w-1/3 text-center">{{__('edit')}}</a>
-                                <a href="" class="text-red-200 bg-red-600 rounded p-2 mx-2 w-1/3 text-center">{{__('delete')}}</a></td>
+                                class="bg-blue-600 rounded p-2 mx-2 w-1/3 text-center">{{__('edit')}}</a>
+                                <a href="" class="bg-red-600 rounded p-2 mx-2 w-1/3 text-center">{{__('delete')}}</a></td>
                             </tr>
                             @empty
                             <tr>
