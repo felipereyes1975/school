@@ -17,6 +17,9 @@
                     <input type="text" name="second_last_name" id="" placeholder="second last name"  class="bg-transparent shadow-md rounded px-8">
                     <button class="bg-blue-600 round text-blue-200 p-2">{{ __('Add new student')}}</button>
                 </form>
+                <div class="my-4">
+                    <a href="/students" class="border bg-blue-600 rounded text-blue-200 p-2 px-4">{{ __('back')}}</a>
+                </div>
                 </div>
             </div>
         </div>

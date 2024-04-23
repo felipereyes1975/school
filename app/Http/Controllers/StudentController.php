@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\User;
+use LDAP\Result;
 
 class StudentController extends Controller
 {
@@ -52,9 +53,20 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show(Request $request)
     {
         //
+        try {
+            //echo $request->search;
+            $query = "%".$request->search."%";
+            $result = Student::where('names','like', $query, )
+            ->orWhere('last_name', 'like', $query)
+            ->orWhere('second_last_name', 'like', $query)->get();
+            return view ('students.index', ['students' => $result]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.index')->with('status', $th->getMessage());
+        }
         
     }
     public function view($id)
@@ -71,24 +83,67 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit($student)
     {
         //
+        $result = Student::find($student);
+        return view('students.edit', ['student' => $result]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update($id, Request $request, Student $student)
     {
         //
+        try {
+            //code...
+            $register = Student::find($id);
+            $register->names = $request->names;
+            $register->last_name = $request->last_name;
+            $register->second_last_name = $request->second_last_name;
+            $register->updated_by = auth()->id();
+            $register->save();
+            return to_route('students.index')->with('status', __('Student updated'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.index')->with('status', __($th->getMessage()));
+        }
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy(Request $student)
     {
         //
+        try {
+            $result = Student::find($student->id);
+            $result->delete();
+            return to_route('students.index')->with('status', __('Student '.$student->id.' deleted '));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.index')->with('status', $th->getMessage());
+        }
+    }
+
+    public function restore()
+    {
+        $trash = Student::onlyTrashed()->get();
+        return view ('students.restore', ['students' => $trash]);
+        //return $trash;
+    }
+
+    public function restoredd(Request $request)
+    {
+        try {
+            Student::withTrashed()->find($request->id)->restore();
+            return to_route('students.restore')->with('status', __('Student '.$request->id.' restored '));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.restore')->with('status', __($th->getMessage()));
+        }
+        
     }
 }
