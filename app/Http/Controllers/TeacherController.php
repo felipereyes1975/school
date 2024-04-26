@@ -89,5 +89,13 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         //
+        try {
+            $result = Teacher::find($teacher->id);
+            $result->delete();
+            return to_route('teachers.index')->with('status', __('Teacher '.$teacher->id.' deleted '));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('teachers.index')->with('status', $th->getMessage());
+        }
     }
 }

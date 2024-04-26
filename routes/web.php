@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/teachers/new', [TeacherController::class, 'create'])->name('teachers.create');
     Route::post('/teachers/new', [TeacherController::class, 'store'])->name('teachers.store');
     Route::get('/teachers/view/{id?}', [TeacherController::class, 'view'])->name('teachers.view');
+    // Route::post('/teachers', [TeacherController::class, 'destroy'])->name('teachers.delete');
+
 
 
 });
