@@ -30,7 +30,7 @@
                         @else
                         <p>{{__('no such a student')}}</p>
                         @endif
-                        <div class="container flex">
+                        <div class="container flex my-5">
                         <a href="/students" class="border bg-blue-600 rounded text-blue-200 p-2 px-4">{{ __('back')}}</a>
                         </div>
                     </form>

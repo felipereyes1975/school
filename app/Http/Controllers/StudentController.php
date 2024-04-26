@@ -83,11 +83,18 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($student)
+    public function edit($student = null)
     {
         //
-        $result = Student::find($student);
-        return view('students.edit', ['student' => $result]);
+        try {
+            //code...
+            $result = Student::find($student);
+            return view('students.edit', ['student' => $result]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.index')->with('status', $th->getMessage());
+        }
+        
     }
 
     /**

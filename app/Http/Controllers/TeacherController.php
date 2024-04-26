@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class TeacherController extends Controller
 {
     /**
@@ -12,7 +12,11 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        //$student = Student::all();
+        // dd($student);
+        //return view ('students.index', ['students' => $student]);
+        $teachers = Teacher::all();
+        return view ('teachers.index', ['teachers' => $teachers]);
     }
 
     /**
@@ -21,6 +25,18 @@ class TeacherController extends Controller
     public function create()
     {
         //
+        return view ('teachers.create');
+    }
+
+    public function view($id)
+    {
+        $teacherSelect = Teacher::find($id);
+        $created_by = User::find($teacherSelect->created_by);
+        $updated_by = User::find($teacherSelect->updated_by);
+        //echo $studentSelect;
+        return view('teachers.view', ['teacher' => $teacherSelect,
+        'created_by' => $created_by,
+        'updated_by' => $updated_by]);
     }
 
     /**
@@ -29,6 +45,18 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         //
+        try {
+            Teacher::create([
+                'name' => $request->get('name'),
+                'last_name' => $request->get('last_name'),
+                'second_last_name' => $request->get('second_last_name'),
+                'created_by' => auth()->id()
+            ]);
+            return to_route('teachers.index')->with('status', __('New teacher added'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('teachers.index')->with('status', __($th->getMessage()));
+        }
     }
 
     /**
