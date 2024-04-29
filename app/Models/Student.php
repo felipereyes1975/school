@@ -14,6 +14,8 @@ class Student extends Model
         'names',
         'last_name',
         'second_last_name',
+        'age',
+        'semester',
         'created_by',
         'updated_by'
     ];

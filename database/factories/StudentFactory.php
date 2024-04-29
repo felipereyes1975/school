@@ -21,6 +21,8 @@ class StudentFactory extends Factory
             'names' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             "second_last_name" => $this->faker->lastName(),
+            'age' => $this->faker->randomElement(range(18, 50)),
+            'semester' => $this->faker->randomElement(range(1, 10)),
             'created_by' => $this->faker->randomElement(range(1, 10)),
             'updated_by' => $this->faker->randomElement(range(1, 10))
         ];

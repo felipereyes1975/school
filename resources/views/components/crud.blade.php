@@ -14,7 +14,7 @@
                         <a href="/{{$type}}/restore"
                         class="border rounded px-10 py-3 ">{{ __('Restore') }}</a>
                     </form>
-                    <table class="border-collapse border border-slate-500 rounded w-full">
+                    <table class="rounded border-collapse border border-slate-500 w-full">
                         <thead>
                             <tr>
                                 @foreach(json_decode($data->first()) as $colum => $value)

@@ -8,12 +8,14 @@
                 <table class="border-collapse border border-slate-500 rounded w-full">
                         <thead>
                             <tr>
+                                @if(json_decode($data->first()))
                                 @foreach(json_decode($data->first()) as $colum => $value)
-                                @if(strpos($colum, 'dated') == false and strpos($colum, 'eleted') == false and strpos($colum, 'eated') == false)
+                                @if(strpos($colum, 'dated') == false and strpos($colum, 'eletd') == false and strpos($colum, 'eated') == false)
                                 <th class="border border-slate-500 p-5">{{$colum}}</th>
                                 @endif
                                 @endforeach
                                 <th class="border border-slate-500 p-5">{{ __('ACTIONS') }}</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -21,7 +23,7 @@
                             <tr class="border border-separate p-2 border border-slate-500
                             odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 @foreach(json_decode($row) as $colum => $value)
-                                @if(strpos($colum, 'created') == false and strpos($colum, 'at') == false and strpos($colum, 'dated') == false)
+                                @if(strpos($colum, 'created') == false and strpos($colum, 'eat') == false and strpos($colum, 'dated') == false)
                                 <td class="p-4">{{$value}}</td>
                                 @endif
                                 @endforeach
@@ -34,7 +36,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="text-center p-5">{{__('no'.$type.'to restore :)')}}</td>
+                                <td class="text-center p-5">{{__('no '.$type.' to restore :)')}}</td>
                             </tr>
                             @endforelse
                         </tbody>

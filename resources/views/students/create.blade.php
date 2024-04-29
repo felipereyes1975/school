@@ -12,9 +12,11 @@
                 <form method="POST" class="bg-transparent rounded px-8 pt-6 pb-8 mb-4 ">
                     @csrf
                     <h1 class="mb-4">{{ __('Register a new Student') }}</h1>
-                    <input type="text" name="name" id="" placeholder="name" class="bg-transparent shadow-md rounded px-8" >
-                    <input type="text" name="last_name" id="" placeholder="last name" class="bg-transparent shadow-md rounded px-8" >
-                    <input type="text" name="second_last_name" id="" placeholder="second last name"  class="bg-transparent shadow-md rounded px-8">
+                    <input type="text" name="name" id="" placeholder="name" class="bg-transparent shadow-md rounded px-8 my-1" ><br>
+                    <input type="text" name="last_name" id="" placeholder="last name" class="bg-transparent shadow-md rounded px-8 my-1" ><br>
+                    <input type="text" name="second_last_name" id="" placeholder="second last name"  class="bg-transparent shadow-md rounded px-8 my-1"><br>
+                    <input type="number" name="age" placeholder="age" class="bg-transparent shadow-md rounded px-8 py-1"><br>
+                    <input type="number" name="semester" id="" placeholder="semester" class="bg-transparent shadow-md rounded px-8 my-1"><br>
                     <button class="bg-blue-600 round text-blue-200 p-2">{{ __('Add new student')}}</button>
                 </form>
                 <div class="my-4">

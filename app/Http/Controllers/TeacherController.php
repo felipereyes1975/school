@@ -62,31 +62,62 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Teacher $teacher)
+    public function show(Request $request)
     {
         //
+        try {
+            //echo $request->search;
+            $query = "%".$request->search."%";
+            $result = Teacher::where('name','like', $query, )
+            ->orWhere('last_name', 'like', $query)
+            ->orWhere('second_last_name', 'like', $query)->get();
+            return view ('teachers.index', ['teachers' => $result]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('teachers.index')->with('status', $th->getMessage());
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Teacher $teacher)
+    public function edit($id)
     {
-        //
+        try {
+            //code...
+            $result = Teacher::find($id);
+            return view('teachers.edit', ['teacher' => $result]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('teachers.index')->with('status', $th->getMessage());
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update($id, Request $request)
     {
         //
+        try {
+            //code...
+            $register = Teacher::find($id);
+            $register->name = $request->names;
+            $register->last_name = $request->last_name;
+            $register->second_last_name = $request->second_last_name;
+            $register->updated_by = auth()->id();
+            $register->save();
+            return to_route('teachers.index')->with('status', __('teacher updated'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('teachers.index')->with('status', __($th->getMessage()));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(Request $teacher)
     {
         //
         try {
@@ -96,6 +127,26 @@ class TeacherController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
             return to_route('teachers.index')->with('status', $th->getMessage());
+        }
+    }
+    public function restore()
+    {
+        try {
+            $trash = Teacher::onlyTrashed()->get();
+            return view ('teachers.restore', ['teachers' => $trash]);   
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('teachers.index')->with('status', $th->getMessage());;   
+        }
+    }
+    public function restoredd(Request $request)
+    {
+        try {
+            Teacher::withTrashed()->find($request->id)->restore();
+            return to_route('teachers.restore')->with('status', __('Teacher'.$request->id.' restored '));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('teachers.restore')->with('status', __($th->getMessage()));
         }
     }
 }

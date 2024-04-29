@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/teachers/new', [TeacherController::class, 'create'])->name('teachers.create');
     Route::post('/teachers/new', [TeacherController::class, 'store'])->name('teachers.store');
     Route::get('/teachers/view/{id?}', [TeacherController::class, 'view'])->name('teachers.view');
+    Route::get('/teachers/restore', [TeacherController::class, 'restore'])->name('teachers.restore');
+    Route::post('/teachers/restore', [TeacherController::class, 'restoredd'])->name('teachers.restoredd');
+    Route::get('/teachers/edit/{id?}', [TeacherController::class, 'edit'])->name('teachers.edit');
+    Route::post('/teachers/edit/{id?}', [TeacherController::class, 'update'])->name('teachers.update');
+    Route::post('/teachers/show', [TeacherController::class, 'show'])->name('teachers.show');
+
     // Route::post('/teachers', [TeacherController::class, 'destroy'])->name('teachers.delete');
 
 

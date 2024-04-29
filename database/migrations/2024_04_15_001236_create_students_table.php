@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('names');
             $table->string('last_name');
             $table->string('second_last_name')->nullable();
+            $table->integer('age');
+            $table->integer('semester');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');

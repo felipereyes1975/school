@@ -109,6 +109,8 @@ class StudentController extends Controller
             $register->names = $request->names;
             $register->last_name = $request->last_name;
             $register->second_last_name = $request->second_last_name;
+            $register->age = $request->age;
+            $register->semester = $request->semester;
             $register->updated_by = auth()->id();
             $register->save();
             return to_route('students.index')->with('status', __('Student updated'));

@@ -25,6 +25,12 @@
                         <tr>
                         <td class="p-2">last name:</td><td><input type="text" class="bg-transparent rounded" name="second_last_name" id="" value="{{$student->second_last_name}}"> </td>
                         </tr>
+                        <tr>
+                        <td class="p-2">age:</td><td><input type="number" class="bg-transparent rounded" name="age" id="" value="{{$student->age}}"> </td>
+                        </tr>
+                        <tr>
+                        <td class="p-2">semester:</td><td><input type="number" class="bg-transparent rounded" name="semester" id="" value="{{$student->semester}}"> </td>
+                        </tr>
                         </table>
                         <button class="border rounded text-blue-200 p-2 px-4 " style="margin-left: 235px;">{{ __('edit') }}</button>
                         @else
