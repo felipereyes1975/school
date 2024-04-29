@@ -31,7 +31,7 @@
                             odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 
                                 @foreach(json_decode($row) as $colum => $value)
-                                @if(strpos($colum, 'created') == false and strpos($colum, 'at') == false and strpos($colum, 'dated') == false)
+                                @if(strpos($colum, 'dated') == false and strpos($colum, 'eleted') == false and strpos($colum, 'eated') == false)
                                 <td class="p-4">{{$value}}</td>
                                 @endif
                                 @endforeach

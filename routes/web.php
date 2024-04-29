@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\HourController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Models\Teacher;
+use Database\Seeders\HourSeeder;
+use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,6 +46,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/teachers/edit/{id?}', [TeacherController::class, 'update'])->name('teachers.update');
     Route::post('/teachers/show', [TeacherController::class, 'show'])->name('teachers.show');
 
+    Route::get('/hours', [HourController::class, 'index'])->name('hours.index');
+    Route::post('/hours/new', [HourController::class, 'store'])->name('hours.create');
+    Route::get('/hours/new', [HourController::class, 'create'])->name('hours.store');
+    Route::get('/hours/view/{id?}', [HourController::class, 'view'])->name('hours.view');
+    Route::post('/hours/show', [HourController::class, 'show'])->name('hours.show');
+    Route::get('hours/edit/{id?}', [HourController::class, 'edit'])->name('hours.edit');
+    Route::post('hours/edit/{id?}', [HourController::class, 'update'])->name('hours.update');
+    Route::post('/hours', [HourController::class, 'destroy'])->name('hours.delete');
+    Route::get('/hours/restore', [HourController::class, 'restore'])->name('hours.restore');
+    Route::post('/hours/restore', [HourController::class, 'restoredd'])->name('hours.restoredd');
     // Route::post('/teachers', [TeacherController::class, 'destroy'])->name('teachers.delete');
 
 

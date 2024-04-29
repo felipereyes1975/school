@@ -1,5 +1,6 @@
 @props([
     'data',
+    'type',
     'created_by',
     'updated_by'])
 <div class="py-12">
@@ -33,7 +34,7 @@
                         @endif
                        
                     </table>
-                    <a href="/students" class="bg-blue-600 rounded text-blue-200 p-2 px-4 mx-4e">{{ __('back')}}</a>
+                    <a href="/{{$type}}" class="bg-blue-600 rounded text-blue-200 p-2 px-4 mx-4e">{{ __('back')}}</a>
                 </div>
             </div>
         </div>
