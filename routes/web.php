@@ -1,12 +1,10 @@
 <?php
 
 use App\Http\Controllers\HourController;
+use App\Http\Controllers\MatterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Models\Teacher;
-use Database\Seeders\HourSeeder;
-use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/teachers/edit/{id?}', [TeacherController::class, 'update'])->name('teachers.update');
     Route::post('/teachers/show', [TeacherController::class, 'show'])->name('teachers.show');
 
+    //UNLIMITED ROUTEEEESSS
     Route::get('/hours', [HourController::class, 'index'])->name('hours.index');
     Route::post('/hours/new', [HourController::class, 'store'])->name('hours.create');
     Route::get('/hours/new', [HourController::class, 'create'])->name('hours.store');
@@ -58,7 +57,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/hours/restore', [HourController::class, 'restoredd'])->name('hours.restoredd');
     // Route::post('/teachers', [TeacherController::class, 'destroy'])->name('teachers.delete');
 
-
+    Route::get('/matters', [MatterController::class, 'index'])->name('matters.index');
+    Route::post('/matters/new', [MatterController::class, 'store'])->name('matters.create');
+    Route::get('/matters/new', [MatterController::class, 'create'])->name('matters.store');
+    Route::get('/matters/view/{id?}', [MatterController::class, 'view'])->name('matters.view');
+    Route::post('/matters/show', [MatterController::class, 'show'])->name('matters.show');
+    Route::get('matters/edit/{id?}', [MatterController::class, 'edit'])->name('matters.edit');
+    Route::post('matters/edit/{id?}', [MatterController::class, 'update'])->name('matters.update');
+    Route::post('/matters', [MatterController::class, 'destroy'])->name('matters.delete');
+    Route::get('/matters/restore', [MatterController::class, 'restore'])->name('matters.restore');
+    Route::post('/matters/restore', [MatterController::class, 'restoredd'])->name('matters.restoredd');
 
 });
 

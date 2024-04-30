@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('hours.index')" :active="request()->routeIs('hours.index')">
                         {{ __('Hours') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('matters.index')" :active="request()->routeIs('matters.index')">
+                        {{ __('Matters') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -90,6 +93,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('hours.index')" :active="request()->routeIs('hours.index')">
                 {{ __('Hours') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('matters.index')" :active="request()->routeIs('matters.index')">
+                {{ __('Matters') }}
             </x-responsive-nav-link>
         </div>
 

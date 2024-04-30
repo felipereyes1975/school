@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('matters', function (Blueprint $table) {
             $table->id();
             $table->string('desc');
-            $table->string('semester');
+            $table->integer('semester');
             $table->smallInteger('hoursPerWeek');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

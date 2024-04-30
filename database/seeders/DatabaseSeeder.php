@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            HourSeeder::class
+            HourSeeder::class,
+            MatterSeeder::class
         ]);
         User::factory()->create([
             'name' => 'Test User',
