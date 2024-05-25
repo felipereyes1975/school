@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('sessions_courses', function (Blueprint $table) {
             $table->id();
-            $table->string('desc');
-            $table->string('semester');
-            $table->foreignId('teacher_id')->constrained();
-            $table->foreignId('matter_id')->constrained();
-            $table->foreignId('classroom_id')->constrained();
+            $table->foreignId('course_id')->constrained();
+            $table->foreignId('hour_id')->constrained();
+            $table->foreignId('day_id')->constrained();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('sessions_courses');
     }
 };

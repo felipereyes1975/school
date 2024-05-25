@@ -71,6 +71,9 @@ class StudentController extends Controller
     }
     public function view($id)
     {
+        try {
+            //code...
+
         $studentSelect = Student::find($id);
         $created_by = User::find($studentSelect->created_by);
         $updated_by = User::find($studentSelect->updated_by);
@@ -78,6 +81,11 @@ class StudentController extends Controller
         return view('students.view', ['student' => $studentSelect,
         'created_by' => $created_by,
         'updated_by' => $updated_by]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.index')->with('status', $th->getMessage());
+
+        }
     }
 
     /**

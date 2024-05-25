@@ -5,6 +5,7 @@ use App\Http\Controllers\MatterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -68,6 +69,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/matters/restore', [MatterController::class, 'restore'])->name('matters.restore');
     Route::post('/matters/restore', [MatterController::class, 'restoredd'])->name('matters.restoredd');
 
+    //routesssssssssssssssssss
+    Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+    Route::post('/courses/new', [CourseController::class, 'store'])->name('courses.create');
+    Route::get('/courses/new', [CourseController::class, 'create'])->name('courses.store');
+    Route::get('/courses/view/{id?}', [CourseController::class, 'view'])->name('courses.view');
+    Route::post('/courses/show', [CourseController::class, 'show'])->name('courses.show');
+    Route::get('courses/edit/{id?}', [CourseController::class, 'edit'])->name('courses.edit');
+    Route::post('courses/edit/{id?}', [CourseController::class, 'update'])->name('courses.update');
+    Route::post('/courses', [CourseController::class, 'destroy'])->name('courses.delete');
+    Route::get('/courses/restore', [CourseController::class, 'restore'])->name('courses.restore');
+    Route::post('/courses/restore', [CourseController::class, 'restoredd'])->name('courses.restoredd');
 });
 
 require __DIR__.'/auth.php';
