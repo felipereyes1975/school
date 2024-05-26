@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentCourseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/students', [StudentController::class, 'destroy'])->name('students.delete');
     Route::get('/students/restore', [StudentController::class, 'restore'])->name('students.restore');
     Route::post('/students/restore', [StudentController::class, 'restoredd'])->name('students.restoredd');
+    Route::get('/students/inscription/{id?}', [StudentController::class, 'inscription'])->name('students.inscription');
+    Route::post('/students/inscription/{id?}', [StudentCourseController::class, 'store'])->name('studentcourse.store');
+
     // to much routes daaaammmmnn
     Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
     Route::post('/teachers/show', [TeacherController::class, 'show'])->name('teachers.show');
@@ -80,6 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses', [CourseController::class, 'destroy'])->name('courses.delete');
     Route::get('/courses/restore', [CourseController::class, 'restore'])->name('courses.restore');
     Route::post('/courses/restore', [CourseController::class, 'restoredd'])->name('courses.restoredd');
+    //yesssssssssssssssssssssssssssssssssssss
 });
 
 require __DIR__.'/auth.php';

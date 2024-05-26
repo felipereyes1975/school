@@ -25,10 +25,30 @@ class StudentCourseController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * 'student_id',
+        'course_id',
+        'group',
+        'created_by',
+        'updated_by'
      */
     public function store(Request $request)
     {
         //
+        try {
+            //code...
+            $courses = json_decode($request->courses);
+            foreach($courses as $course){
+                student_course::create([
+                    'student_id' => $request->student,
+                    'course_id' => $course,
+                    'created_by' => auth()->id()
+                ]);
+            }
+            return to_route('students.index')->with('status', __('suscribed to new courses'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.index')->with('status', __($th->getMessage()));
+        }
     }
 
     /**

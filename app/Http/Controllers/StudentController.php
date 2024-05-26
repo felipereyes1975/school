@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\sessionsCourse;
 use App\Models\Student;
+use App\Models\student_course;
 use Illuminate\Http\Request;
 use App\Models\User;
 use LDAP\Result;
@@ -49,7 +52,29 @@ class StudentController extends Controller
         }
         
     }
+    /**
+     * Before there was time, before there was anything, there was nothing.
+     * and before there was nothing, they where monsters.
+     * [based on id, display courses that the student can suscribe]
+     * [also show courses already suscribed and to suscribe]
+     */
 
+     public function inscription($id)
+     {
+        try {
+            //code...
+            $student = Student::findOrFail($id);
+            $suscribed = student_course::where("student_id", "=", $id)->get();
+            $avilable = Course::where("semester", "=", $student->semester)->get();
+            return view('students.inscription', ['student' => $student, 
+            'suscribed' => $suscribed, 
+            'avilable' => $avilable]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('students.index')->with('status', $th->getMessage());
+        }
+        
+     }
     /**
      * Display the specified resource.
      */
@@ -61,6 +86,7 @@ class StudentController extends Controller
             $query = "%".$request->search."%";
             $result = Student::where('names','like', $query, )
             ->orWhere('last_name', 'like', $query)
+            ->orWhere('semester', '=', $request->search)
             ->orWhere('second_last_name', 'like', $query)->get();
             return view ('students.index', ['students' => $result]);
         } catch (\Throwable $th) {

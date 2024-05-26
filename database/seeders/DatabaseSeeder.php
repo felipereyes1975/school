@@ -17,19 +17,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory(10)->create();
+        Student::factory(50)->create();
+        Teacher::factory(10)->create();
+        Classroom::factory(10)->create();
         $this->call([
             UserSeeder::class,
             HourSeeder::class,
             MatterSeeder::class,
-            DaysSeeder::class
+            DaysSeeder::class,
+            CourseSeeder::class
         ]);
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-        User::factory(10)->create();
-        Student::factory(50)->create();
-        Teacher::factory(10)->create();
-        Classroom::factory(10)->create();
+        
     }
 }

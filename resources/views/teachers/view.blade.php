@@ -5,6 +5,6 @@
         </h2>
     </x-slot>
 
-    @include('components.CRUDit.view', ['data' => $teacher, 'type' => 'teacher','created_by' => $created_by, 'updated_by' => $updated_by])
+    @include('components.CRUDit.view', ['data' => $teacher, 'type' => 'teachers', 'created_by' => $created_by, 'updated_by' => $updated_by])
 
 </x-app-layout>

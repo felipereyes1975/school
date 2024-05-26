@@ -68,7 +68,7 @@
                     </div>
                     </main>
                     <style>
-                        @import url(https://fonts.googleapis.com/css?family=Khula:700);
+@import url(https://fonts.googleapis.com/css?family=Khula:700);
 body {
   background: #111;
 }
@@ -150,7 +150,7 @@ function consoleText(words, id, colors) {
 }
                     </script>
 
-                    <footer class="py-16 text-center text-sm text-black dark:text-white/70">
+                    <footer class="py-16 text-center text-sm text-black dark:text-white/70 my-10">
                         <!-- Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) -->
                         <p>a program created by Felipe Reyes</p>
                     </footer>

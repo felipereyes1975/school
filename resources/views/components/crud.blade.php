@@ -17,11 +17,13 @@
     <table class="rounded border-collapse border border-slate-500 w-full">
         <thead>
             <tr>
-                @foreach(json_decode($data->first()) as $colum => $value)
+                @forelse(json_decode($data->first()) as $colum => $value)
                 @if(strpos($colum, 'dated') == false and strpos($colum, 'eleted') == false and strpos($colum, 'eated') == false)
                 <th class="border border-slate-500 p-5">{{$colum}}</th>
                 @endif
-                @endforeach
+                @empty
+                <th></th>
+                @endforelse
                 <th class="border border-slate-500 p-5">{{ __('ACTIONS') }}</th>
             </tr>
         </thead>
@@ -46,6 +48,7 @@
                     <input type="number" name="id" id="" class="hidden" value="{{$row->id}}">
                     <button class="bg-red-600 rounded p-2 mx-1 w-3/3 text-center" onclick="return confirm('sure?')">{{__('delete')}}</button>
                 </form>
+               
             </tr>
             @empty
             <tr>

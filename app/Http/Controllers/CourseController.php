@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Matter;
@@ -13,6 +14,7 @@ use App\Models\Hour;
 //use App\Http\Controllers\SessionsCourseController;
 use App\Models\sessionsCourse;
 use PhpParser\Node\Stmt\TryCatch;
+use stdClass;
 
 class CourseController extends Controller
 {
@@ -26,6 +28,11 @@ class CourseController extends Controller
         ->select('courses.id', 'courses.desc AS name', 'courses.semester AS semester', 'teachers.name AS teacher name','teachers.last_name as teacher last name', 'matters.desc AS matter', 'classroom_id AS classroom')
         ->join('matters', 'courses.matter_id', '=', 'matters.id')
         ->get();
+        if (count($courses) < 1)
+        {
+        $noempty =  new Collection([ 'items' => '{"desc":"nodata","id":1}']);
+        return view('courses.index', ['courses' => $noempty]);
+        }
         //$result = Course::all();
         return view('courses.index', ['courses' => $courses]);
     }
@@ -71,8 +78,8 @@ class CourseController extends Controller
                             ->where('Matter_id', '=', $request->matter)
                             ->get();
             $id = $curso->first()->id;
-            echo $id;
-            echo json_encode($horario);
+           // echo $id;
+            //echo json_encode($horario);
 
             foreach($horario as $hora)
             {
@@ -101,9 +108,13 @@ class CourseController extends Controller
         try {
             //echo $request->search;
             $query = "%".$request->search."%";
-            $result = Course::where('names','like', $query, )
-            ->orWhere('last_name', 'like', $query)
-            ->orWhere('second_last_name', 'like', $query)->get();
+            $result = Course::where('courses.desc','like', $query)
+            ->orWhere('courses.semester', 'like', $query)
+            ->orWhere('courses.teacher_id', 'like', $query)
+            ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
+            ->select('courses.id', 'courses.desc AS name', 'courses.semester AS semester', 'teachers.name AS teacher name','teachers.last_name as teacher last name', 'matters.desc AS matter', 'classroom_id AS classroom')
+            ->join('matters', 'courses.matter_id', '=', 'matters.id')
+            ->get();
             return view ('courses.index', ['courses' => $result]);
         } catch (\Throwable $th) {
             //throw $th;
@@ -115,9 +126,13 @@ class CourseController extends Controller
     {
         try {
             //code...
-        $courseselect = Course::find($id);
-        $created_by = User::find($courseselect->created_by);
-        $updated_by = User::find($courseselect->updated_by);
+        $courseselect = Course::where('courses.id', '=', $id)
+        ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
+        ->select('courses.id', 'courses.desc AS name', 'courses.semester AS semester', 'teachers.name AS teacher name','teachers.last_name as teacher last name', 'matters.desc AS matter', 'classroom_id AS classroom', 'courses.created_by', 'courses.updated_by')
+        ->join('matters', 'courses.matter_id', '=', 'matters.id')
+        ->first();
+        $created_by = User::find($courseselect->first()->created_by);
+        $updated_by = User::find($courseselect->first()->updated_by);
         $hours = Hour::all();
         $days = Days::all();
         $schedule = sessionsCourse::where('course_id', '=', $id)->get();

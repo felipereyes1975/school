@@ -30,7 +30,7 @@
             @endforelse
         </table>
         <a href="/courses/{{$course->id}}/assistants">
-        <button class="p-4 m-2 w-full bg-green-500 text-gray-800 text-lg rounded-lg border-gray-200">show assistant list</button>
+        <button class="p-4 m-2 w-full bg-green-500 text-gray-800 text-xl text-lg rounded-lg border-gray-200">show assistant list</button>
         </a>
         </div>
     </div>

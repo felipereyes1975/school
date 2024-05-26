@@ -15,7 +15,7 @@ return new class extends Migration
             //$table->id();
             $table->foreignId('student_id')->constrained();
             $table->foreignId('course_id')->constrained();
-            $table->char('group', 1);
+            $table->char('group', 1)->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
