@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('New Courses') }}
+            {{ __('Update Courses') }}
         </h2>
     </x-slot>
 
@@ -9,24 +9,28 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                <h1 class="mb-4">{{ __('Register a new Course') }}</h1>
+                <h1 class="mb-4">{{ __('Update the Course: ') }}{{ $Course->desc }}</h1>
                 <form method="POST" class="bg-transparent rounded px-8 pt-6 pb-8 mb-4 ">
                     @csrf
                     <table>
                         <tr>
                             <td><span>{{__('Description:')}}</span></td>
-                            <td><input type="text" name="desc" id="" class="bg-transparent rounded"></td>
+                            <td><input type="text" name="desc" id="" class="bg-transparent rounded" value="{{$Course->desc}}"></td>
                         </tr>
                         <tr>
                             <td><span>{{__('Semester:')}}</span></td>
-                            <td><input type="number" name="semester" id="" class="bg-transparent rounded"></td>
+                            <td><input type="number" name="semester" id="" class="bg-transparent rounded" value="{{$Course->semester}}"></td>
                         </tr>
                         <tr>
                             <td class="p-2"><span>{{__('Classroom:')}}</span></td>
                             <td>
                             <select name="classroom" id="" class="bg-transparent">
                             @forelse($classrooms as $classroom)
+                            @if ($classroom->id == $Course->classroom_id)
+                            <option selected class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$classroom->id}}</option>
+                            @else
                             <option class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$classroom->id}}</option>
+                            @endif
                             @empty
                             @endforelse
                             </select>
@@ -37,7 +41,11 @@
                             <td>
                             <select name="matter" id="" class="bg-transparent rounded">
                                 @forelse($matters as $matter)
-                                <option value="{{$matter->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$matter->desc}}</option>
+                                @if ($matter->id == $Course->matter_id)
+                                    <option selected value="{{$matter->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$matter->desc}}</option>
+                                @else
+                                    <option value="{{$matter->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$matter->desc}}</option>
+                                @endif
                                 @empty
                                 @endforelse
                             </select>
@@ -48,7 +56,11 @@
                             <td>
                                 <select name="teacher" id="" class="bg-transparent rounded">
                                     @forelse($teachers as $teacher)
-                                    <option value="{{$teacher->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$teacher->name.' '.$teacher->last_name.' '.$teacher->second_last_name}}</option>
+                                    @if ($teacher->id == $Course->teacher_id)
+                                        <option selected value="{{$teacher->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$teacher->name.' '.$teacher->last_name.' '.$teacher->second_last_name}}</option>
+                                    @else
+                                        <option value="{{$teacher->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$teacher->name.' '.$teacher->last_name.' '.$teacher->second_last_name}}</option>
+                                    @endif
                                     @empty
                                     @endforelse
                                 </select>
@@ -92,28 +104,12 @@
                         </div>
                     </tr>
                 </div>
-                    <br>
-                    
-                    <button class="bg-blue-600 round text-gray-200 p-2 rounded border" type="submit"  onclick="return validation('{{$matter->hoursPerWeek}}')" >{{ __('Add new course')}}</button>
+                    <button class="bg-blue-600 round text-gray-200 p-2 rounded border p-auto m-auto" type="submit" onclick="return validation('{{$matter->hoursPerWeek}}')">{{ __('Update course')}}</button>
                 </form>
-                
-                
-                <table class="align-center">
-                        @forelse($hours as $hour)
-                        <tr>
-                            <td><span>{{$hour->start_at}}</span></td>
-                            @forelse($days as $day)
-                            <td class="border p-4 ">{{$day->desc}}</td>
-                            @empty
-                            @endforelse
-                        </tr>
-                        @empty
-                        @endforelse
-                    </table>
-
+                @include('components.schedule', ['course' => $Course, 'hours' => $hours, 'days' => $days, 'schedule' => $schedule])
                 </div>
-                <div class="my-4">
-                    <a href="/courses" class="border bg-blue-600 rounded text-blue-200 p-2 m-5 px-4">{{ __('back')}}</a>
+                <div class="my-2">
+                    <a href="/courses" class="border bg-orange-600 rounded text-gray-200 p-2 m-5 px-4">{{ __('Cancel')}}</a>
                 </div>
             </div>
             <script>
