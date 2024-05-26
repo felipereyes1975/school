@@ -44,7 +44,7 @@ class StudentCourseController extends Controller
                     'created_by' => auth()->id()
                 ]);
             }
-            return to_route('students.index')->with('status', __('suscribed to new courses'));
+            return to_route('students.index')->with('status', __('suscribed to new courses!'));
         } catch (\Throwable $th) {
             //throw $th;
             return to_route('students.index')->with('status', __($th->getMessage()));
@@ -54,9 +54,20 @@ class StudentCourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(student_course $student_course)
+    public function show($id, student_course $student_course)
     {
         //
+        try {
+            //code...
+            $assistants = student_course::where('course_id', '=', $id)
+            ->join('students', 'student_courses.student_id', '=', 'students.id')
+            ->get();
+            return view ('courses.assistants', ['assistants' => $assistants]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return to_route('courses.index')->with('status', __($th->getMessage()));
+        }
+        
     }
 
     /**

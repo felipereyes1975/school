@@ -13,8 +13,6 @@ use App\Models\Days;
 use App\Models\Hour;
 //use App\Http\Controllers\SessionsCourseController;
 use App\Models\sessionsCourse;
-use PhpParser\Node\Stmt\TryCatch;
-use stdClass;
 
 class CourseController extends Controller
 {
@@ -159,8 +157,20 @@ class CourseController extends Controller
         //
         try {
             //code...
-            $result = Course::find($Course);
-            return view('courses.edit', ['Course' => $result]);
+        $matters = Matter::all();
+        $classrooms = Classroom::all();
+        $teachers = Teacher::all();
+        $hours = Hour::all();
+        $days = Days::all();
+        $schedule = sessionsCourse::where('course_id', '=', $Course)->get();
+        $result = Course::find($Course);
+        return view('courses.edit', ['Course' => $result,
+        'matters' => $matters,
+        'classrooms' => $classrooms,
+        'teachers' => $teachers,
+        'hours' => $hours,
+        'days' => $days,
+        'schedule' => $schedule]);
         } catch (\Throwable $th) {
             //throw $th;
             return to_route('courses.index')->with('status', $th->getMessage());
@@ -176,15 +186,29 @@ class CourseController extends Controller
         //
         try {
             //code...
+            $horario = json_decode($request->horario);
             $register = Course::find($id);
-            $register->names = $request->names;
-            $register->last_name = $request->last_name;
-            $register->second_last_name = $request->second_last_name;
-            $register->age = $request->age;
+            $register->desc = $request->desc;
             $register->semester = $request->semester;
+            $register->Classroom_id = $request->classroom;
+            $register->Teacher_id = $request->teacher;
+            $register->Matter_id = $request->matter;
             $register->updated_by = auth()->id();
             $register->save();
+            //chin-chin
+            $oldSchedule = sessionsCourse::where('course_id', '=', $id);
+            $oldSchedule->delete();
+            foreach($horario as $hora)
+            {
+                sessionsCourse::create([
+                    'course_id' => $id,
+                    'hour_id' => $hora[1],
+                    'day_id' => $hora[0],
+                    'created_by'=> auth()->id(),
+                ]);
+            }
             return to_route('courses.index')->with('status', __('Course updated'));
+            //return request();
         } catch (\Throwable $th) {
             //throw $th;
             return to_route('courses.index')->with('status', __($th->getMessage()));

@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses', [CourseController::class, 'destroy'])->name('courses.delete');
     Route::get('/courses/restore', [CourseController::class, 'restore'])->name('courses.restore');
     Route::post('/courses/restore', [CourseController::class, 'restoredd'])->name('courses.restoredd');
+    Route::get('/courses/{id?}/assistants', [StudentCourseController::class, 'show'])->name('studentcourse.show');
     //yesssssssssssssssssssssssssssssssssssss
 });
 
