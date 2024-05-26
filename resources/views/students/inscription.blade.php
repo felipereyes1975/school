@@ -15,12 +15,32 @@
             <span class="mx-5">{{__('Avilable:')}}</span>
                 <div class="bg-gray-900 rounded m-5 p-3 display:flex grid">
                     <ul id="avilablecourses">
+                       
                        @forelse($avilable as $course)
-                       <li class="bg-gray-500 p-2 rounded">
-                        <span>{{$course->desc}}</span>
-                        <button onclick="addCourse('{{json_encode($course)}}')" class="bg-green-600 rounded p-2 mx-1 w-auto text-center">{{__('Suscribe!')}}</button>
-                        <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
-                       </li>
+                    @if (count($suscribed) >= 1)
+                        @forelse($suscribed as $sus)
+
+                         @if ($course->id == $sus->id)
+                         @break
+                         @else
+                         <li class="bg-gray-500 p-2 rounded">
+                         <span>{{$course->desc}}</span>
+                         <button onclick="addCourse('{{json_encode($course)}}')" class="bg-green-600 rounded p-2 mx-1 w-auto text-center">{{__('Suscribe!')}}</button>
+                         <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
+                        </li>
+                         @endif
+
+                         @empty
+                         @endforelse
+                    @else
+                    <li class="bg-gray-500 p-2 rounded">
+                         <span>{{$course->desc}}</span>
+                         <button onclick="addCourse('{{json_encode($course)}}')" class="bg-green-600 rounded p-2 mx-1 w-auto text-center">{{__('Suscribe!')}}</button>
+                         <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
+                        </li>
+                    @endif
+                        
+                       
                        @empty
                        @endforelse
                     </ul>
@@ -33,7 +53,7 @@
                 </div>
                 <form action="{{route('studentcourse.store')}}" method="POST">
                     @csrf
-                    <input type="text" name="courses" id="courses" class="text-gray-600 ">
+                    <input type="text" name="courses" id="courses" class="text-gray-600 hidden">
                     <input type="text" name="student" id="student" value="{{$student->id}}" class="text-gray-600 hidden">
                     <br>
                     <button class="bg-orange-600 rounded mx-4 text-grey-200 p-2 px-4" onclick="return confirm('sure?')">{{__('Confirm')}}</button>
@@ -42,9 +62,8 @@
                 <span class="mx-5">{{__('On-going:')}}</span>
                 <div class="bg-gray-900 rounded m-5 p-3 display:flex grid">
                     <ul id="avilablecourses">
-                        <p>{{$suscribed}}</p>
                        @forelse($suscribed as $course)
-                       <li class="bg-gray-500 p-2 rounded">
+                       <li class="bg-gray-500 p-4 rounded">
                         <span>{{$course->desc}}</span>
                         <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
                        </li>

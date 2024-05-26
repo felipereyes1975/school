@@ -59,12 +59,14 @@ class StudentController extends Controller
      * [also show courses already suscribed and to suscribe]
      */
 
-     public function inscription($id)
+     public function inscription($id = null)
      {
         try {
             //code...
             $student = Student::findOrFail($id);
-            $suscribed = student_course::where("student_id", "=", $id)->get();
+            $suscribed = student_course::where("student_id", "=", $id)
+            ->join('courses', 'student_courses.course_id', '=', 'courses.id')
+            ->get();
             $avilable = Course::where("semester", "=", $student->semester)->get();
             return view('students.inscription', ['student' => $student, 
             'suscribed' => $suscribed, 
