@@ -13,6 +13,7 @@ class StudentCourseController extends Controller
     public function index()
     {
         //
+        return view('evaluation.index');
     }
 
     /**

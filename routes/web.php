@@ -86,6 +86,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses/restore', [CourseController::class, 'restoredd'])->name('courses.restoredd');
     Route::get('/courses/{id?}/assistants', [StudentCourseController::class, 'show'])->name('studentcourse.show');
     //yesssssssssssssssssssssssssssssssssssss
+    Route::get('/evaluation', [StudentCourseController::class, 'index'])->name('evaluation.index');
+    Route::get('/evaluation/students', [StudentCourseController::class, 'students'])->name('evaluation.students');
 });
 
 require __DIR__.'/auth.php';

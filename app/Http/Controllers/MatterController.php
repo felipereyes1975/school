@@ -103,7 +103,7 @@ class matterController extends Controller
             $register = Matter::find($id);
             $register->desc = $request->desc;
             $register->semester = $request->semester;
-            $register->hoursPerWeek = $request->hourPerWeek;
+            $register->hoursPerWeek = $request->hoursPerWeek;
             $register->updated_by = auth()->id();
             $register->save();
             return to_route('matters.index')->with('status', __('matter updated'));

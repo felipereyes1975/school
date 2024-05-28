@@ -39,12 +39,12 @@
                         <tr>
                             <td class="p-2"><span>{{__('Matter:')}}</span></td>
                             <td>
-                            <select name="matter" id="" class="bg-transparent rounded">
+                            <select name="matter" id="matterSelect" class="bg-transparent rounded" onchange="setHoursWeek()">
                                 @forelse($matters as $matter)
                                 @if ($matter->id == $Course->matter_id)
-                                    <option selected value="{{$matter->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$matter->desc}}</option>
+                                    <option selected value="{{$matter->id}}"  horas="{{$matter->hoursPerWeek}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$matter->desc}}</option>
                                 @else
-                                    <option value="{{$matter->id}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$matter->desc}}</option>
+                                    <option value="{{$matter->id}}"  horas="{{$matter->hoursPerWeek}}" class="border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 dark:text-gray-200 dark:bg-gray-800">{{$matter->desc}}</option>
                                 @endif
                                 @empty
                                 @endforelse
@@ -68,7 +68,7 @@
                         </tr>
                         <tr>
                             <td class="p-2"><span>{{__('Hours per week:')}}</span></td>
-                            <td><span>{{$matter->hoursPerWeek}}</span></td>
+                            <td><span id="hoursWeek">{{$matter->hoursPerWeek}}</span></td>
                         </tr>
                         
                     </table>
@@ -114,9 +114,21 @@
             </div>
             <script>
                 let horario = [];
-                function validation(hoursPerWeek)
+                const materia = document.getElementById('matterSelect')
+                const hoursWeek =document.getElementById('hoursWeek')
+                function setHoursWeek()
                 {
-                    if ((horario.length) == hoursPerWeek)
+                    try {
+                    var selected = materia.options[materia.selectedIndex]
+                    var horas = selected.getAttribute('horas')
+                    hoursWeek.innerHTML = horas
+                    } catch (error) {
+                     alert(error)   
+                    }                
+                }
+                function validation()
+                {
+                    if ((horario.length) == Number(hoursWeek.innerHTML))
                     {
                         return confirm('sure?')
                     } else {

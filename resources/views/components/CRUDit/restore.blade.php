@@ -31,7 +31,7 @@
                                 <form action="{{route($type.'.restoredd')}}" class="w-2/3" method="post">
                                 @csrf
                                     <input type="number" name="id" id="" class="hidden" value="{{$row->id}}">
-                                    <button class="bg-blue-600 rounded p-2 mx-2 w-2/3 text-center" onclick="return confirm('sure?')">{{__('restore')}}</button>
+                                    <button class="bg-blue-600 rounded p-2 mx-2 w-full text-center" onclick="return confirm('sure?')">{{__('restore')}}</button>
                                 </form>
                             </tr>
                             @empty

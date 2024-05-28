@@ -28,10 +28,5 @@ class DatabaseSeeder extends Seeder
             DaysSeeder::class,
             CourseSeeder::class
         ]);
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-        
     }
 }
