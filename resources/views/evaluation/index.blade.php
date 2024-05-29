@@ -13,9 +13,9 @@
                     <div class="container p-6 mx-auto my-10 bg-gray-600 rounded-lg">
                         <a href="/evaluation/courses">{{__('Evaluate a Class')}}</a>
                     </div>
-                    <div class="container p-6 mx-auto my-10 bg-gray-600 rounded-lg">
-                        <a href="/evaluation/students">{{__('Evaluate a Student')}}</a>
-                    </div>
+                    <a href="/evaluation/students">
+                    <div class="container p-6 mx-auto my-10 bg-gray-600 rounded-lg">{{__('Evaluate a Student')}}</div>
+                    </a>
                 </div>
             </div>
         </div>

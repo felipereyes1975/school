@@ -9,9 +9,12 @@
     <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
 
 <div class="p-4 text-gray-900 dark:text-gray-100">
-    <div class="bg-white p-7 m-auto dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
+    <div class="bg-white p-7 m-auto dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex ">
         <a href="/students/inscription/{{$student->id}}">
-        <button class="p-2 m-2 w-auto bg-orange-500 text-gray-200 text-lg rounded-lg border-gray-200 grid">sign to a course</button>
+        <button class="p-2 px-6 m-2 w-auto bg-orange-500 text-gray-200 text-lg rounded-lg border-gray-200 grid">{{__('sign to a course')}}</button>
+        </a>
+        <a href="/students/kardex/{{$student->id}}">
+        <button class="p-2 px-6 m-2 w-auto bg-orange-500 text-gray-200 text-lg rounded-lg border-gray-200 grid">{{__('get kardex')}}</button>
         </a>
         </div>
     </div>

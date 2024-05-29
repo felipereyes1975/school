@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/matters/restore', [MatterController::class, 'restore'])->name('matters.restore');
     Route::post('/matters/restore', [MatterController::class, 'restoredd'])->name('matters.restoredd');
 
-    //routesssssssssssssssssss
+    //routesssssssssssssssssssstudentcourse
     Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
     Route::post('/courses/new', [CourseController::class, 'store'])->name('courses.create');
     Route::get('/courses/new', [CourseController::class, 'create'])->name('courses.store');
@@ -87,7 +87,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses/{id?}/assistants', [StudentCourseController::class, 'show'])->name('studentcourse.show');
     //yesssssssssssssssssssssssssssssssssssss
     Route::get('/evaluation', [StudentCourseController::class, 'index'])->name('evaluation.index');
+    Route::get('/evaluation/courses', [StudentCourseController::class, 'courses'])->name('evaluation.courses');
+    Route::post('/evaluation/courses', [StudentCourseController::class, 'coursesearch'])->name('evaluation.coursesearch');
     Route::get('/evaluation/students', [StudentCourseController::class, 'students'])->name('evaluation.students');
+    Route::get('/evaluation/students/{id?}', [StudentCourseController::class, 'single'])->name('evaluation.single');
+    Route::get('/evaluation/courses/{id?}', [StudentCourseController::class, 'grupal'])->name('evaluation.grupal');
+    Route::get('/evaluation/students/{id?}', [StudentCourseController::class, 'single'])->name('evaluation.single');
+    Route::post('/evaluation/students/{id?}', [StudentCourseController::class, 'update'])->name('evaluation.update');
+    Route::get('/students/kardex/{id?}', [StudentCourseController::class, 'kardex'])->name('evaluation.kardex');
 });
 
 require __DIR__.'/auth.php';
