@@ -100,7 +100,7 @@
                         <tr>
                         <div class="bg-gray-900 rounded m-5 p-3 display:flex">
                             <ul id="horasAgregadas"></ul>
-                            <input type="text" name="horario" id="horario" class="text-gray-600 hidden">
+                            <input type="text" name="horario" id="horario" class="text-gray-600 hidden ">
                         </div>
                     </tr>
                 </div>
@@ -116,6 +116,10 @@
                 let horario = [];
                 const materia = document.getElementById('matterSelect')
                 const hoursWeek =document.getElementById('hoursWeek')
+                const lista = document.getElementById('horasAgregadas')
+                const day = document.getElementById('day')
+                const hour = document.getElementById('hour')
+                const inn = document.getElementById('horario')
                 function setHoursWeek()
                 {
                     try {
@@ -139,58 +143,77 @@
                 function cleanSessions(){
                     try {
                         horario = [];
-                        const lista = document.getElementById('horasAgregadas')
-                        const inn = document.getElementById('horario')
                         inn.value = ""
                         lista.textContent = ""
                     } catch (error) {
                         alert(error.message)
                     }
                 }
+                function removeSesion(relacion)
+                {
+                    try {
+                        var saveIndex
+                    for (let index = 0; index < horario.length; index++) {
+                        if (relacion == horario[index])
+                        {
+                           saveIndex = index
+                           console.log(saveIndex)
+                        }
+                    }
+                    horario.splice(saveIndex, 1)
+                    document.getElementById('horario').value = JSON.stringify(horario)
+                    } catch (error) {
+                        alert(error)
+                    }
+                    
+                }
+                function validateSession()
+                {
+                    try {
+                        var relacion = [day.selectedIndex + 1, hour.selectedIndex + 1]
+                        var saveIndex
+                    for (let index = 0; index < horario.length; index++) {
+                        if (relacion[1] == horario[index][1] && relacion[0] == horario[index][0])
+                        {
+                           alert('session already selected')
+                           return false
+                        }
+                    }
+                    return true
+                    } catch (error) {
+                        alert(error)
+                    }
+                }
                 function addSession(){
                     try {
-                    const lista = document.getElementById('horasAgregadas')
-                    const day = document.getElementById('day')
-                    const hour = document.getElementById('hour')
                     //alert(hour.value)
-                    if(hour && day)
+                    if(hour && day && validateSession())
                     {
+                        
                         const li = document.createElement('li')
                         const deleteSession = document.createElement('button')
                         let dayIndex = day.options[day.selectedIndex].text
                         let hourIndex = hour.options[hour.selectedIndex].text
                         var relacion = dayIndex +" - "+ hourIndex
                         li.textContent = relacion
-                        li.id = relacion
-                        //myDay = JSON.parse(day.value)
-                        //alert(day.options[day.selectedIndex].text)
+                        li.id = [day.selectedIndex +1, hour.selectedIndex+1]
+                        li.appendChild(deleteSession)
+                        deleteSession.classList.add('bg-red-600')
+                        deleteSession.classList.add('rounded')
+                        deleteSession.classList.add('p-2')
+                        deleteSession.classList.add('m-2')
+                        deleteSession.textContent = "remove"
+                        deleteSession.type = "button"
+                        deleteSession.onclick = function () {
+                            removeSesion(this.parentElement.id)
+                            this.parentElement.parentElement.removeChild(this.parentElement);
+                        };
                         li.classList.add("rounded")
                         li.classList.add("bg-gray-600")
                         li.classList.add("p-2")
                         li.classList.add("m-2")
                         li.classList.add("text-gray-200")
                         li.classList.add("border")
-                        // li.appendChild(deleteSession)
-                        // deleteSession.classList.add('bg-red-600')
-                        // deleteSession.classList.add('rounded')
-                        // deleteSession.classList.add('p-2')
-                        // deleteSession.classList.add('m-2')
-                        // deleteSession.textContent = "remove"
-                        // deleteSession.type = "button"
-                        // deleteSession.addEventListener("click", function($this){
-                        //     var indice = horario.indexOf([day.options[day.selectedIndex].text, hour.options[hour.selectedIndex].text])
-                        //     // alert(indice)
-                        //     // horario.splice(indice, 1)
-                        //     // alert(horario)
-                        //     alert(node.pareng)
-                        //     //alert('searchJson: '+JSON.stringify(horario))
-                        //     var searchJson = JSON.stringify(horario); // "[3,566,23,79]"
-                        //     //alert('arrJson: '+horario.map(JSON.stringify))
-                        //     var arrJson = horario.map(JSON.stringify); // ["[2,6,89,45]", "[3,566,23,79]", "[434,677,9,23]"]
-                        //     alert(arrJson.indexOf(searchJson));
-                        //     lista.removeChild(document.getElementById(day.options[day.selectedIndex].text +" - "+hour.options[hour.selectedIndex].text))
-                        //     document.getElementById('horario').value = JSON.stringify(horario)
-                        // });
                         li.value = day.options[day.selectedIndex].text +" - "+hour.options[hour.selectedIndex].text
                         horario.push([Number(day.value), Number(hour.value)])
                         document.getElementById('horario').value = JSON.stringify(horario)

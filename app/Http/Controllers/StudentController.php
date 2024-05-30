@@ -38,11 +38,14 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+        //return request();
         try {
             Student::create([
                 'names' => $request->get('name'),
                 'last_name' => $request->get('last_name'),
                 'second_last_name' => $request->get('second_last_name'),
+                'age' => $request->get('age'),
+                'semester' => $request->get('semester'),
                 'created_by' => auth()->id()
             ]);
             return to_route('students.index')->with('status', __('New student added'));

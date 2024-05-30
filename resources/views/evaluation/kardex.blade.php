@@ -43,13 +43,20 @@
                         </td>
                     </tr>
                     @empty
-                    <p>{{__('Nothing to evaluate')}}</p>
+                    <tr>
+                    <td>{{__('Nothing to evaluate')}}</td></tr>
                     @endforelse
                     </tbody>
                     </table>
+                    @if (count($student) > 0)
                     <div class="container m-4 py-5">
                     <a href="/students/view/{{$student->first()->student_id}}" class="py-2 px-8 my-10 border bg-blue-600 rounded">back</a>
                     </div>
+                    @else
+                    <div class="container m-4 py-5">
+                    <a href="/students" class="py-2 px-8 my-10 border bg-blue-600 rounded">back</a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
