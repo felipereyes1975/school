@@ -1,17 +1,20 @@
-<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Evaluation') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container p-6 my-2 text-xl">
                         <span>{{__('You can evaluate ')}}</span>
+                        @if ($type == 'courses')
                         <span>{{$class->first()->desc}}</span>
+                        @else
+                        <span>{{$class->first()->names}} {{$class->first()->last_name}}</span>
+                        @endif
                         <span>{{__(' here!')}}</span>
                     </div>
                     <table class="w-full border">
@@ -45,14 +48,16 @@
                     @endforelse
                     </tbody>
                     </table>
-                    <form action="{{route('evaluation.update')}}" method="POST">
+                    <form action="" method="POST">
                         @csrf
                     <div class="container w-full flex">
-                        <span class="basis-2/4"></span>
+                        <span class="basis-2/4">
+                        </span>
                         <span class="basis-2/4"></span>
                         <input type="text" name="notes" id="notes_input" class="bg-transparent hidden">
-                    <button type="submit" class="basis-1/4 py-2 px-8 right-0 mx-4 my-2 border bg-orange-600 rounded" onclick="return validate()">{{__('Submit')}}</button>
+                    <button class="basis-1/4 py-2 px-8 right-0 mx-4 my-2 border bg-orange-600 rounded" onclick="return validate()">{{__('Submit')}}</button>
                     </div>
+                    <a href="/evaluation/{{$type}}" class="py-2 px-8 my-10 border bg-blue-600 rounded">back</a>
                     </form>
                 </div>
             </div>
@@ -62,12 +67,13 @@
         var notes = [];
         const notes_input = document.getElementById('notes_input')
         function validate(){
-            if (notes.size == 0)
+            if (notes.length == 0)
             {
-                alert('evaluations are unset')
+                alert('evaluations are unset, plase verify')
                 return false
             } else {
-                return true;
+                
+                return confirm('sure?');
             }
         }
         function setCalif(id)
@@ -114,4 +120,3 @@
             }
         }
     </script>
-</x-app-layout>

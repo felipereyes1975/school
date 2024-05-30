@@ -161,10 +161,11 @@ class StudentCourseController extends Controller
         //
         try {
             //code...
+            $course = Course::find($id);
             $assistants = student_course::where('course_id', '=', $id)
             ->join('students', 'student_courses.student_id', '=', 'students.id')
             ->get();
-            return view ('courses.assistants', ['assistants' => $assistants]);
+            return view ('courses.assistants', ['assistants' => $assistants, 'course' => $course]);
         } catch (\Throwable $th) {
             //throw $th;
             return to_route('courses.index')->with('status', __($th->getMessage()));
@@ -183,7 +184,7 @@ class StudentCourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, student_course $student_course)
+    public function update(Request $request)
     {
         //
         try {
@@ -196,6 +197,8 @@ class StudentCourseController extends Controller
             $evaluation->evaluation = $note[1];
             if ($note[1] > 7){
                 $evaluation->approved = true;
+            } else {
+                $evaluation->approved = false;
             }
             $evaluation->save();
         }

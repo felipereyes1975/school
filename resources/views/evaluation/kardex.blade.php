@@ -7,13 +7,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="container p-6 my-2 text-xl">
+            <div class="bg-white px-4 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-4 text-gray-900 dark:text-gray-100">
+                    <div class="container py-4 my-2 text-xl">
                         <span>{{__('Hello ')}}</span>
                         <span>{{__(' this is your kardex!')}}</span>
                     </div>
-                    <table class="w-full border">
+                    <table class="w-full border text-xl">
                         <thead class="border">
                             <th>{{__('id')}}</th>
                             <th>{{__('Student')}}</th>
@@ -47,6 +47,9 @@
                     @endforelse
                     </tbody>
                     </table>
+                    <div class="container m-4 py-5">
+                    <a href="/students/view/{{$student->first()->student_id}}" class="py-2 px-8 my-10 border bg-blue-600 rounded">back</a>
+                    </div>
                 </div>
             </div>
         </div>

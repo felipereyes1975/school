@@ -9,7 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
            <div class="font-semibold m-5 text-xl text-gray-800 dark:text-gray-200 leading-tight bg-gray-800 p-10 rounded-xl">
             <span>Welcome {{$student->names}}, you can suscribe here</span>
-            
             </div>
            <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight bg-gray-800 p-5 rounded-xl">
             <span class="mx-5">{{__('Avilable:')}}</span>
@@ -17,35 +16,33 @@
                 <div class="bg-gray-900 rounded m-5 p-3 display:flex grid">
                     <ul id="avilablecourses">
                        
-                       @forelse($avilable as $course)
-                    @if (count($suscribed) >= 1)
-                        @php($canPrint = True)
-                        @forelse($suscribed as $sus)
+                    @forelse($avilable as $course)
+                        @if (count($suscribed) >= 1)
+                            @php($canPrint = True)
+                            @forelse($suscribed as $sus)
 
-                         @if ($course->id == $sus->id)
-                         @php($canPrint = False)
-                         @endif
-                         @empty
-                         @endforelse
-                         @if($canPrint)
-                         <li class="bg-gray-500 p-2 rounded">
-                         <span>{{$course->desc}}</span>
-                         <button onclick="addCourse('{{json_encode($course)}}')" class="bg-green-600 rounded p-1 m-1 w-auto text-center">{{__('Suscribe!')}}</button>
-                         <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
-                        </li>
-                         @endif
+                             @if ($course->id == $sus->id)
+                                @php($canPrint = False)
+                             @endif
+                            @empty
+                            @endforelse
+                             @if($canPrint)
+                             <li class="bg-gray-500 p-2 rounded">
+                             <span>{{$course->desc}}</span>
+                             <button onclick="addCourse('{{json_encode($course)}}')" class="bg-green-600 rounded p-1 m-1 w-auto text-center">{{__('Suscribe!')}}</button>
+                             <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
+                            </li>
+                            @endif
                          
-                    @else
+                        @else
                     <li class="bg-gray-500 p-2 rounded">
                          <span>{{$course->desc}}</span>
                          <button onclick="addCourse('{{json_encode($course)}}')" class="bg-green-600 rounded p-1 m-1 w-auto text-center">{{__('Suscribe!')}}</button>
                          <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
                         </li>
-                    @endif
-                        
-                       
-                       @empty
-                       @endforelse
+                        @endif
+                    @empty
+                    @endforelse
                     </ul>
                 </div>
                 <span class="mx-5">{{__('Selected:')}}</span>
@@ -66,14 +63,19 @@
                 <div class="bg-gray-900 rounded m-5 p-3 display:flex grid">
                     <ul id="avilablecourses">
                        @forelse($suscribed as $course)
-                       <li class="bg-gray-500 p-4 rounded">
-                        <span>{{$course->desc}}</span>
-                        <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
-                       </li>
+                            @if($course->evaluation == null)
+                            <li class="bg-gray-500 p-4 rounded">
+                             <span>{{$course->desc}}</span>
+                             <a href="/courses/view/{{$course->id}}/" class="bg-blue-600 rounded p-2 mx-1 w-auto text-center">{{__('view')}}</a>
+                            </li>
+                            @endif
                        @empty
                        @endforelse
                     </ul>
                 </div>
+                <div class="container m-4 py-5">
+                    <a href="/students/view/{{$student->id}}" class="py-2 px-8 my-10 border bg-blue-600 rounded">back</a>
+                    </div>
             </div>
         </div>
     </div>

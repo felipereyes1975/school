@@ -90,8 +90,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/evaluation/courses', [StudentCourseController::class, 'courses'])->name('evaluation.courses');
     Route::post('/evaluation/courses', [StudentCourseController::class, 'coursesearch'])->name('evaluation.coursesearch');
     Route::get('/evaluation/students', [StudentCourseController::class, 'students'])->name('evaluation.students');
+    Route::post('/evaluation/students', [StudentCourseController::class, 'search'])->name('evaluation.studentsearch');
     Route::get('/evaluation/students/{id?}', [StudentCourseController::class, 'single'])->name('evaluation.single');
     Route::get('/evaluation/courses/{id?}', [StudentCourseController::class, 'grupal'])->name('evaluation.grupal');
+    Route::post('/evaluation/courses/{id?}', [StudentCourseController::class, 'update'])->name('evaluation.update');
     Route::get('/evaluation/students/{id?}', [StudentCourseController::class, 'single'])->name('evaluation.single');
     Route::post('/evaluation/students/{id?}', [StudentCourseController::class, 'update'])->name('evaluation.update');
     Route::get('/students/kardex/{id?}', [StudentCourseController::class, 'kardex'])->name('evaluation.kardex');

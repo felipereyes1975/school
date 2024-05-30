@@ -34,7 +34,7 @@
                         @endif
                        
                     </table>
-                    <a href="/{{$type}}" class="bg-blue-600 rounded text-blue-200 p-2 px-4 mx-4e">{{ __('back')}}</a>
+                    <a href="/{{$type}}" class="bg-blue-600 rounded text-gray-200 p-2 px-4 mx-4e">{{ __('back')}}</a>
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@
                         <form action="" method="POST">
                         @csrf
                         <input type="text" id="search" name="search" class="bg-transparent border my-4 mx-2 rounded" placeholder="type search">
-                        <button type="button" class="border bg-gray-500 py-2 rounded px-4">{{__('Search')}}</button>
+                        <button type="submit" class="border bg-gray-500 py-2 rounded px-4">{{__('Search')}}</button>
                         </form>
                     </div>
                     <table class="w-full text-xl border">

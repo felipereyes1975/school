@@ -14,7 +14,7 @@
         <a href="/{{$type}}/restore"
         class="border rounded px-10 py-3 ">{{ __('Restore') }}</a>
     </form>
-    <table class="rounded border-collapse border border-slate-500 w-full">
+    <table class="rounded  border-collapse border border-slate-500 w-full">
         <thead>
             <tr>
                 @forelse(json_decode($data->first()) as $colum => $value)
@@ -35,7 +35,7 @@
                 
                 @foreach(json_decode($row) as $colum => $value)
                 @if(strpos($colum, 'dated') == false and strpos($colum, 'eleted') == false and strpos($colum, 'eated') == false)
-                <td class="p-4">{{$value}}</td>
+                <td class="px-8">{{$value}}</td>
                 @endif
                 @endforeach
                 <td class="inline-block m-4 content-center flex px-5">

@@ -66,8 +66,10 @@ class StudentController extends Controller
             $student = Student::findOrFail($id);
             $suscribed = student_course::where("student_id", "=", $id)
             ->join('courses', 'student_courses.course_id', '=', 'courses.id')
+            ->where('evaluation', '!=', 'null')
             ->get();
-            $avilable = Course::where("semester", "=", $student->semester)->get();
+            $avilable = Course::where("semester", "=", $student->semester)
+            ->get();
             return view('students.inscription', ['student' => $student, 
             'suscribed' => $suscribed, 
             'avilable' => $avilable]);
